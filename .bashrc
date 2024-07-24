@@ -629,3 +629,10 @@ export PATH=$PATH:"$HOME/.local/bin:$HOME/.cargo/bin:/var/lib/flatpak/exports/bi
 
 eval "$(starship init bash)"
 eval "$(zoxide init bash)"
+
+#addional
+# set background
+feh --bg-scale $HOME/Documents/w0.jpg
+
+# opacity
+picom -b
