@@ -66,7 +66,7 @@ export EDITOR=nvim
 export VISUAL=nvim
 alias pico='edit'
 alias spico='sedit'
-alias nano='edit'
+#alias nano='edit'
 alias snano='sedit'
 alias vim='nvim'
 
@@ -143,7 +143,9 @@ alias da='date "+%Y-%m-%d %A %T %Z"'
 alias vi='nvim'
 alias svi='sudo vi'
 #alias vis='nvim "+set si"'
-
+#alias short commands
+alias py='python3'
+alias copy='xclip -selection clipboard < ' "$1"
 # Change directory aliases
 alias home='cd ~'
 alias cd..='cd ..'
