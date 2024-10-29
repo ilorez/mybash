@@ -100,7 +100,7 @@ alias svi='sudo vi'
 #alias vis='nvim "+set si"'
 #alias short commands
 alias py='python3'
-alias copy='xclip -selection clipboard < ' "$1"
+alias copy='xclip -selection clipboard < '
 # Change directory aliases
 alias home='cd ~'
 alias cd..='cd ..'

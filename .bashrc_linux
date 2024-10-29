@@ -365,10 +365,10 @@ eval "$(zoxide init bash)"
 
 #addional
 # set background
-feh --bg-scale $HOME/Documents/w1.png
+#feh --bg-scale $HOME/Documents/w1.png
 
 # opacity
-picom -b
+#picom -b
 
 # bun
 export BUN_INSTALL="$HOME/.bun"
