@@ -156,7 +156,10 @@ alias ungz='tar -xvzf'
 # Alias's for used with C
 alias ccf='gcc -Wall -Werror -Wextra'
 
-
+# Terminal
+alias x='exit'
+alias c='clear'
+alias sb='source ~/.bashrc'
 # alias to cleanup unused docker containers, images, networks, and volumes
 
 alias docker-clean=' \
