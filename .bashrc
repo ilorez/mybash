@@ -65,8 +65,27 @@ export VISUAL=nvim
 # To have colors for ls and all grep commands such as grep, egrep and zgrep
 export CLICOLOR=1
 export LS_COLORS='no=00:fi=00:di=00;34:ln=01;36:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arj=01;31:*.taz=01;31:*.lzh=01;31:*.zip=01;31:*.z=01;31:*.Z=01;31:*.gz=01;31:*.bz2=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.jpg=01;35:*.jpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.avi=01;35:*.fli=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.ogg=01;35:*.mp3=01;35:*.wav=01;35:*.xml=00;31:'
-#export GREP_OPTIONS='--color=auto' #deprecated
+#explaination of the above
+#no => normal
+#fi => file
+#di => directory
+#ln => symbolic link
+#pi => fifo file = fifo is a special file type that permits independent processes to communicate.
+#so => socket file = socket is a special file type, similar to a pipe, that permits processes to communicate.
+#do => door = door is a special file type used for interprocess communication on some versions of UNIX.
+#bd => block device
+#cd => character device
+#or => symbolic link pointing to a non-existent file (orphan)
+#ex => executable
+#colors
+#01;34 => blue
+#01;36 => cyan
+#40;33 => brown
+#01;35 => purple
+#01;31 => red
+#01;32 => green
 
+#export GREP_OPTIONS='--color=auto' #deprecated
 
 # Color for manpages in less makes manpages a little easier to read
 export LESS_TERMCAP_mb=$'\E[01;31m'
@@ -168,11 +187,9 @@ alias docker-clean=' \
   docker network prune -f ; \
   docker volume prune -f '
 
-
 #######################################################
 # SPECIAL FUNCTIONS
 #######################################################
-
 
 # Copy and go to the directory
 cpg() {
@@ -197,7 +214,6 @@ mkdirg() {
   mkdir -p "$1"
   cd "$1"
 }
-
 
 # Copy file with a progress bar
 cpp() {
@@ -239,9 +255,8 @@ lazyg() {
   git push
 }
 # find command
-ff()
-{
-	find . -type f -name "*$1*"
+ff() {
+  find . -type f -name "*$1*"
 }
 
 # Extracts any archive(s) (if unp isn't installed)
@@ -280,7 +295,6 @@ ftext() {
   grep -iIHrn --color=always "$1" . | less -r
 }
 
-
 # Goes up a specified number of directories  (i.e. up 4)
 up() {
   local d=""
@@ -307,4 +321,3 @@ trim() {
   var="${var%"${var##*[![:space:]]}"}" # remove trailing whitespace characters
   echo -n "$var"
 }
-
