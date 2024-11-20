@@ -81,9 +81,9 @@ export LS_COLORS='no=00:fi=00:di=00;34:ln=01;36:pi=40;33:so=01;35:do=01;35:bd=40
 #01;34 => blue
 #01;36 => cyan
 #40;33 => brown
-#01;35 => purple
 #01;31 => red
 #01;32 => green
+#01;35 => purple
 
 #export GREP_OPTIONS='--color=auto' #deprecated
 
