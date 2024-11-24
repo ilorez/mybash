@@ -1,2 +1,2 @@
 ## Overview of Ilorez's `.bashrc` Configuration
-new bash
+(alias commnad shell function ...)
