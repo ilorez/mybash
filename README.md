@@ -1,3 +1,5 @@
 ## Overview of Ilorez's `.bashrc`s Configuration
 
-Happy easy copy paste XD.
+# content
+1 - .bahrc: 
+
