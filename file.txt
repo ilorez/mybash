@@ -1,0 +1,7 @@
+Netid State  Recv-Q Send-Q Local Address:Port  Peer Address:PortProcess                            
+udp   UNCONN 0      0            0.0.0.0:60389      0.0.0.0:*    users:(("firefox",pid=1356,fd=47))
+tcp   LISTEN 0      4096       127.0.0.1:38343      0.0.0.0:*                                      
+tcp   LISTEN 0      100        127.0.0.1:18083      0.0.0.0:*                                      
+tcp   LISTEN 0      128          0.0.0.0:22         0.0.0.0:*                                      
+tcp   LISTEN 0      1            0.0.0.0:4242       0.0.0.0:*                                      
+tcp   LISTEN 0      128             [::]:22            [::]:*                                      

@@ -173,7 +173,8 @@ alias unbz2='tar -xvjf'
 alias ungz='tar -xvzf'
 
 # Alias's for used with C
-alias ccf='gcc -Wall -Werror -Wextra'
+alias gcc='rm -rf *.h.gch && gcc'
+alias ccf='rm -rf *.h.gch && gcc -Wall -Werror -Wextra'
 
 # Terminal
 alias x='exit'
