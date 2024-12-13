@@ -1,4 +1,4 @@
-## Overview of Ilorez's `.bashrc`s Configuration
+## Overview of Ilorez's shell Configuration
 
 ### Description
 This repo contain some files like functions, aliases, exports and linker which is the mean files and some other files like personal/intra that is like what name say a personal file Ilorez use in some cases. 
