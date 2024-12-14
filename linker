@@ -1,6 +1,10 @@
 
 MY_SHELLS_PATH=~/.myshells
+
+# sources
 ALIASES_FILE=$MY_SHELLS_PATH/aliases
 FUNCTIONS_FILE=$MY_SHELLS_PATH/functions
-INTRA_FILE=$MY_SHELLS_PATH/personal/intra
 EXPORTS_FILE=$MY_SHELLS_PATH/exports
+
+# personal sources
+INTRA_FILE=$MY_SHELLS_PATH/personal/intra
