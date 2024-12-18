@@ -79,7 +79,7 @@ alias ungz='tar -xvzf'
 # Alias's for used with C
 alias ccf='gcc -Wall -Werror -Wextra'
 alias gcc='gcc'
-alias vcheck = "valgrind --leak-check=full"
+alias vcheck="valgrind --leak-check=full"
 
 # Terminal
 alias x='exit'

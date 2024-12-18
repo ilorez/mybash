@@ -8,3 +8,4 @@ EXPORTS_FILE=$MY_SHELLS_PATH/exports
 
 # personal sources
 INTRA_FILE=$MY_SHELLS_PATH/personal/intra
+ARCH_FILE=$MY_SHELLS_PATH/personal/my_arch

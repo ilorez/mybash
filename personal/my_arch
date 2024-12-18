@@ -1,0 +1,88 @@
+#!/usr/bin/env bash
+iatest=$(expr index "$-" i)
+
+#######################################################
+# SOURCED ALIAS'S AND SCRIPTS
+#######################################################
+if [ -f /usr/bin/fastfetch ]; then
+  fastfetch
+fi
+
+# Source global definitions
+if [ -f /etc/bashrc ]; then
+  . /etc/bashrc
+fi
+# Enable bash programmable completion features in interactive shells
+if [ -f /usr/share/bash-completion/bash_completion ]; then
+  . /usr/share/bash-completion/bash_completion
+elif [ -f /etc/bash_completion ]; then
+  . /etc/bash_completion
+fi
+
+#######################################################
+# EXPORTS
+#######################################################
+
+export PATH="$HOME/.nvim/bin:$PATH"
+
+# Expand the history size
+export HISTFILESIZE=10000
+export HISTSIZE=500
+export HISTTIMEFORMAT="%F %T" # add timestamp to history
+
+# Don't put duplicate lines in the history and do not add lines that start with a space
+export HISTCONTROL=erasedups:ignoredups:ignorespace
+
+# set up XDG folders
+export XDG_DATA_HOME="$HOME/.local/share"
+export XDG_CONFIG_HOME="$HOME/.config"
+export XDG_STATE_HOME="$HOME/.local/state"
+export XDG_CACHE_HOME="$HOME/.cache"
+
+# bun
+export BUN_INSTALL="$HOME/.bun"
+export PATH=$BUN_INSTALL/bin:$PATH
+
+# Seeing as other scripts will use it might as well export it
+export LINUXTOOLBOXDIR="$HOME/linuxtoolbox"
+
+export PATH=$PATH:"$HOME/.local/bin:$HOME/.cargo/bin:/var/lib/flatpak/exports/bin:/.local/share/flatpak/exports/bin"
+
+#######################################################
+# ALIASES
+#######################################################
+
+# tester aliases
+alias francinette=/home/ilorez/francinette/tester.sh
+alias paco=/home/ilorez/francinette/tester.sh
+
+#alias nano='edit'
+alias pico='edit'
+alias spico='sedit'
+
+# Note (not added)
+# Check if ripgrep is installed
+if command -v rg &>/dev/null; then
+  # Alias grep to rg if ripgrep is installed
+  alias grep='rg'
+else
+  # Alias grep to /usr/bin/grep with GREP_OPTIONS if ripgrep is not installed
+  alias grep="/usr/bin/grep $GREP_OPTIONS"
+fi
+
+#######################################################
+# STARSHIP PROMPT
+#######################################################
+
+# Allow ctrl-S for history navigation (with ctrl-R)
+[[ $- == *i* ]] && stty -ixon
+
+eval "$(starship init bash)"
+eval "$(zoxide init bash)"
+
+#addional
+# set background
+feh --bg-scale $HOME/Documents/w1.png
+
+# opacity
+picom -b
