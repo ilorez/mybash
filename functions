@@ -132,3 +132,24 @@ trim() {
   var="${var%"${var##*[![:space:]]}"}" # remove trailing whitespace characters
   echo -n "$var"
 }
+
+# Function to find and replace text in a file
+frtext() {
+    if [ "$#" -ne 3 ]; then
+        echo "Usage: frtext <word_to_find> <word_to_replace> <file>"
+        return 1
+    fi
+
+    word_to_find="$1"
+    word_to_replace="$2"
+    file="$3"
+
+    if [ ! -f "$file" ]; then
+        echo "Error: File '$file' does not exist."
+        return 1
+    fi
+
+    # Use sed for find and replace
+    sed -i "s/$word_to_find/$word_to_replace/g" "$file" && \
+    echo "Replaced '$word_to_find' with '$word_to_replace' in '$file'."
+}

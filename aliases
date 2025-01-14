@@ -80,6 +80,7 @@ alias ungz='tar -xvzf'
 alias ccf='gcc -Wall -Werror -Wextra'
 alias gcc='gcc'
 alias vcheck="valgrind --leak-check=full"
+alias gdbgui="gdbgui -b /usr/bin/firefox"
 
 # Terminal
 alias x='exit'
