@@ -87,6 +87,9 @@ alias x='exit'
 alias c='clear'
 alias sb='source ~/.bashrc'
 
+# bear
+alias bear='make fclean && bear -- make -o compile_commands.json && make clean'
+
 # alias to cleanup unused docker containers, images, networks, and volumes
 
 alias docker-clean=' \
