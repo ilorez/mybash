@@ -8,9 +8,18 @@ alias norm='norminette | grep -v OK'
 #addional
 # set background
 # use ./w1.png from current directory
-if [ -f /usr/bin/feh ]; then
+# if it sshconnect to a remote server, it will not work
+# let's check that first
+#
+#if [ -f /usr/bin/feh ]; then
+#  feh --bg-scale ~/.myshells/personal/w1.png
+#fi
+# so now we will check two things if feh available and we are not ssh connected
+
+if [ -f /usr/bin/feh ] && [ -z "$SSH_CLIENT" ]; then
   feh --bg-scale ~/.myshells/personal/w1.png
 fi
+
 
 # opacity
 if ! pgrep -x "picom" >/dev/null; then
