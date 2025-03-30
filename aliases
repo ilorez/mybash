@@ -90,6 +90,9 @@ alias sb='source ~/.bashrc'
 # bear
 alias bear='make fclean && bear -- make -o compile_commands.json && make clean'
 
+# wifi 
+alias wifi="nmtui" 
+
 # alias to cleanup unused docker containers, images, networks, and volumes
 
 alias docker-clean=' \

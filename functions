@@ -153,3 +153,18 @@ frtext() {
     sed -i "s/$word_to_find/$word_to_replace/g" "$file" && \
     echo "Replaced '$word_to_find' with '$word_to_replace' in '$file'."
 }
+
+# run git pull in all subdirectories
+#
+git_pull_all() {
+    for dir in */; do
+        if [ -d "$dir/.git" ]; then
+            (
+                git --git-dir="$dir/.git" --work-tree="$dir" pull > /dev/null 2>&1 &
+                echo "Running git pull in $dir"
+            )
+        fi
+    done
+    wait
+    echo "All git pull operations are complete."
+}
