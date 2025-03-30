@@ -20,3 +20,6 @@ fi
 if [ -f /usr/bin/fastfetch ]; then
   fastfetch
 fi
+
+# Node: this packages required in this script
+# sudo pacman -S feh picom fastfetch
