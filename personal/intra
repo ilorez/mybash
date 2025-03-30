@@ -20,6 +20,11 @@ if [ -f /usr/bin/feh ] && [ -z "$SSH_CLIENT" ]; then
   feh --bg-scale ~/.myshells/personal/w1.png
 fi
 
+# Question: why not use the full path to the image?
+# Answer: because it is a relative path to the current directory 
+# so if you run this script from another directory, it will not work
+# Qestion: in develeoper therm what we call the ssh connection and reall connection (tty and pty)
+# Answer: ssh connection is a remote connection and real connection is a local connection
 
 # opacity
 if ! pgrep -x "picom" >/dev/null; then
