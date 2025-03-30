@@ -7,7 +7,10 @@ alias norm='norminette | grep -v OK'
 
 #addional
 # set background
-feh --bg-scale $HOME/Documents/w1.png
+# use ./w1.png
+if [ -f /usr/bin/feh ]; then
+  feh --bg-scale ./w1.png  
+fi
 
 # opacity
 if ! pgrep -x "picom" >/dev/null; then
