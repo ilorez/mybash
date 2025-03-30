@@ -7,9 +7,9 @@ alias norm='norminette | grep -v OK'
 
 #addional
 # set background
-# use ./w1.png
+# use ./w1.png from current directory
 if [ -f /usr/bin/feh ]; then
-  feh --bg-scale ./w1.png  
+  feh --bg-scale ~/.myshells/personal/w1.png
 fi
 
 # opacity
