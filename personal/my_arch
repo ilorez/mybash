@@ -85,4 +85,6 @@ eval "$(zoxide init bash)"
 feh --bg-scale $HOME/Documents/w1.png
 
 # opacity
-picom -b
+if ! pgrep -x "picom" >/dev/null; then
+  picom -b
+fi
