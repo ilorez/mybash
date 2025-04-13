@@ -27,7 +27,7 @@ fi
 # Answer: ssh connection is a remote connection and real connection is a local connection
 
 # opacity
-if ! pgrep -x "picom" >/dev/null; then
+if [ -f /usr/bin/picom ] && [! pgrep -x "picom" >/dev/null]; then
   picom -b
 fi
 
