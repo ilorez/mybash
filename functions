@@ -60,11 +60,88 @@ gcom() {
   git add .
   git commit -m "$1"
 }
+
 lazyg() {
-  git add .
-  git commit -m "$1"
-  git push
+  # Validate commit message
+  if [ -z "$1" ]; then
+    echo "Error: Commit message required"
+    return 1
+  fi
+
+  # Check for changes
+  if [ -z "$(git status --porcelain)" ]; then
+    echo "No changes to commit"
+    return 1
+  fi
+
+  # Safety check for branch name
+  current_branch=$(git symbolic-ref --short HEAD 2>/dev/null)
+  if [ -z "$current_branch" ]; then
+    echo "Not on any branch!"
+    return 1
+  fi
+
+  # Execute commands with error checking
+  git add . && \
+  git commit -m "$1" && \
+  git push || {
+    echo "Operation failed"
+    return 1
+  }
 }
+
+gflow() {
+  # Validate input
+  if [ -z "$1" ] || [ -z "$2" ]; then
+    echo "Usage: gflow <branch_suffix> <commit_message>"
+    return 1
+  fi
+
+  # Get default branch name (supports both master/main)
+  default_branch=$(git symbolic-ref refs/remotes/origin/HEAD | sed 's@^refs/remotes/origin/@@')
+
+  # Create branch name
+  branch_name="ilorez/$1"
+
+  # Branch validation
+  if git show-ref --verify --quiet "refs/heads/$branch_name"; then
+    echo "Branch $branch_name already exists!"
+    return 1
+  fi
+
+  # Create and switch to new branch
+  if ! git checkout -b "$branch_name"; then
+    echo "Failed to create branch"
+    return 1
+  fi
+
+  # Push branch with tracking
+  if ! git push --set-upstream origin "$branch_name"; then
+    echo "Failed to push branch"
+    return 1
+  fi
+
+  # Commit changes safely
+  lazyg "$2" || return 1
+
+  # Switch back to default branch
+  if ! git checkout "$default_branch"; then
+    echo "Failed to switch back to $default_branch"
+    return 1
+  fi
+
+  # Update local default branch
+  if ! git pull; then
+    echo "Failed to pull latest changes"
+    return 1
+  fi
+
+  echo "Go to GitHub to merge the $branch_name branch"
+  echo "Branch URL: $(git config --get remote.origin.url | sed 's/\.git$//')/tree/$branch_name"
+}
+
+
+
 # find command
 ff() {
   find . -type f -name "*$1*"
@@ -152,4 +229,42 @@ frtext() {
     # Use sed for find and replace
     sed -i "s/$word_to_find/$word_to_replace/g" "$file" && \
     echo "Replaced '$word_to_find' with '$word_to_replace' in '$file'."
+}
+
+# branchdel()
+# {
+#   git branch -d `git branch --list $1\*`
+# }
+branchdel() {
+  # Check if prefix is provided
+  if [[ -z "$1" ]]; then
+    echo "Usage: branchdel <prefix>"
+    return 1
+  fi
+  
+  # Get list of branches to delete, excluding current and protected branches
+  local current=$(git symbolic-ref --short HEAD 2>/dev/null)
+  local branches=$(git branch --list "$1*" | grep -v "^\*\|main\|master" | sed "s/^[ \t]*//")
+  
+  # Check if any branches found
+  if [[ -z "$branches" ]]; then
+    echo "No branches found with prefix '$1'"
+    return 0
+  fi
+  
+  # Show which branches will be deleted
+  echo "Branches to delete:"
+  echo "$branches" | sed 's/^/  - /'
+  
+  # Ask for confirmation
+  echo "Continue with deletion? (y/N) "
+  read confirm
+  if [[ "$confirm" != [yY]* ]]; then
+    echo "Operation cancelled"
+    return 0
+  fi
+  
+  # Delete branches
+  git branch -d $(echo "$branches")
+  echo "Branches with prefix '$1' deleted (where possible)"
 }
