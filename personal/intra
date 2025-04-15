@@ -10,6 +10,11 @@ alias norm='norminette | grep -v OK'
 lock()
 {
     pkill ft_lock;
+    LANG_MASK=$(xset -q | grep LED | awk '{ print $10 }')
+    if [[ "$LANG_MASK" != "00000002" ]]; then 
+      echo "Change lang to ENG first!"
+      return 1
+    fi
     echo -n "lock ? Y/n : ";
     read answer;
     if [[ "$answer" == "Y" || "$answer" == "y" ]]; then
