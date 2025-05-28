@@ -1,0 +1,42 @@
+[1mdiff --git a/aliases b/aliases[m
+[1mindex 74d56fd..82f842b 100644[m
+[1m--- a/aliases[m
+[1m+++ b/aliases[m
+[36m@@ -87,12 +87,16 @@[m [malias x='exit'[m
+ alias c='clear'[m
+ alias sb='source ~/.bashrc'[m
+ [m
+[31m-# bear[m
+[32m+[m[32m# create compile commands file[m
+ alias bear='make fclean && bear -- make -o compile_commands.json && make clean'[m
+[32m+[m[32malias make_compile = "make fclean && compiledb make && make clean"[m
+ [m
+ # wifi [m
+ alias wifi="nmtui" [m
+ [m
+[32m+[m[32m# disk[m
+[32m+[m[32malias disk="ncdu -rx ~"[m
+[32m+[m
+ # alias to cleanup unused docker containers, images, networks, and volumes[m
+ [m
+ alias docker-clean=' \[m
+[1mdiff --git a/functions b/functions[m
+[1mindex c22e743..76733b5 100644[m
+[1m--- a/functions[m
+[1m+++ b/functions[m
+[36m@@ -281,3 +281,15 @@[m [mgit_pull_all() {[m
+     wait[m
+     echo "All git pull operations are complete."[m
+ }[m
+[32m+[m
+[32m+[m[32m# Custom 'rm' to move files to /tmp/my_trash[m
+[32m+[m[32mrm() {[m
+[32m+[m[32m    mkdir -p /tmp/my_trash  # Ensure the trash directory exists[m
+[32m+[m[32m    mv -- "$@" /tmp/my_trash/ 2>/dev/null  # Move files silently (ignore errors)[m
+[32m+[m[32m}[m
+[32m+[m
+[32m+[m[32mtests() {[m
+[32m+[m[32m  mkdir -p /tmp/tests[m
+[32m+[m[32m  cd /tmp/tests[m
+[32m+[m[32m  vim test.c[m
+[32m+[m[32m}[m

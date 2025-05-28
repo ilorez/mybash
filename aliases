@@ -87,11 +87,15 @@ alias x='exit'
 alias c='clear'
 alias sb='source ~/.bashrc'
 
-# bear
+# create compile commands file
 alias bear='make fclean && bear -- make -o compile_commands.json && make clean'
+alias make_compile = "make fclean && compiledb make && make clean"
 
 # wifi 
 alias wifi="nmtui" 
+
+# disk
+alias disk="ncdu -rx ~"
 
 # alias to cleanup unused docker containers, images, networks, and volumes
 

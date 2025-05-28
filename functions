@@ -281,3 +281,15 @@ git_pull_all() {
     wait
     echo "All git pull operations are complete."
 }
+
+# Custom 'rm' to move files to /tmp/my_trash
+rm() {
+    mkdir -p /tmp/my_trash  # Ensure the trash directory exists
+    mv -- "$@" /tmp/my_trash/ 2>/dev/null  # Move files silently (ignore errors)
+}
+
+tests() {
+  mkdir -p /tmp/tests
+  cd /tmp/tests
+  vim test.c
+}
