@@ -293,3 +293,24 @@ tests() {
   cd /tmp/tests
   vim test.c
 }
+
+mountf()
+{
+  lsblk
+  # example usage: mountf sdc1 name => mount in /mnt/
+  mkdir -p /mnt/$2
+  sudo mount /dev/$1 /mnt/$2
+  #sudo chown -R $USER:$USER /mnt/$2
+  #sudo chmod -R 777 /mnt/$2
+  lsblk
+  echo "Mounted /dev/$1 to /mnt/$2"
+}
+
+umountf()
+{
+  # example usage: umountf name => umount /mnt/
+  lsblk
+  sudo umount /mnt/$1
+  echo "Unmounted /mnt/$1"
+  lsblk
+}
