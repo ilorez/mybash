@@ -4,7 +4,6 @@
 
 # alias to show the date
 alias da='date "+%Y-%m-%d %A %T %Z"'
-
 # Alias's to modified commands
 #alias cp='cp -i'
 #alias mv='mv -i'
@@ -89,7 +88,7 @@ alias sb='source ~/.bashrc'
 
 # create compile commands file
 alias bear='make fclean && bear -- make -o compile_commands.json && make clean'
-alias make_compile = "make fclean && compiledb make && make clean"
+alias make_compile="make fclean && compiledb make && make clean"
 
 # wifi 
 alias wifi="nmtui" 

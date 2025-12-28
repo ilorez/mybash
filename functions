@@ -1,10 +1,10 @@
 #######################################################
 # SPECIAL FUNCTIONS
-#######################################################
-
-# Copy and go to the directory
-cpg() {
-  if [ -d "$2" ]; then
+####################################################### 
+# Copy and go to the directory 
+cpg() 
+{ 
+  if [ -d "$2" ]; then 
     cp "$1" "$2" && cd "$2"
   else
     cp "$1" "$2"
@@ -283,10 +283,10 @@ git_pull_all() {
 }
 
 # Custom 'rm' to move files to /tmp/my_trash
-rm() {
-    mkdir -p /tmp/my_trash  # Ensure the trash directory exists
-    mv -- "$@" /tmp/my_trash/ 2>/dev/null  # Move files silently (ignore errors)
-}
+#rm() {
+#    mkdir -p /tmp/my_trash  # Ensure the trash directory exists
+#    mv -- "$@" /tmp/my_trash/ # 2>/dev/null  # Move files silently (ignore errors)
+#}
 
 tests() {
   mkdir -p /tmp/tests
@@ -314,3 +314,30 @@ umountf()
   echo "Unmounted /mnt/$1"
   lsblk
 }
+
+
+create_make() {
+cat > Makefile << 'EOF'
+CXX = g++
+CXXFLAGS = -Wall -Wextra -Werror -g
+SRC = main.cpp
+OBJ = $(SRC:.cpp=.o)
+EXEC = program
+
+all: $(EXEC)
+	clear
+	@./$(EXEC)
+
+$(EXEC): $(OBJ)
+	$(CXX) $(OBJ) -o $(EXEC)
+
+%.o: %.cpp
+	$(CXX) $(CXXFLAGS) -c $< -o $@
+
+clean:
+	rm -f $(OBJ) $(EXEC)
+
+.PHONY: all clean
+EOF
+}
+
