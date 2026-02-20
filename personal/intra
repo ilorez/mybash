@@ -7,8 +7,7 @@ alias sb='source ~/.zshrc'
 alias norm='norminette | grep -v OK'
 
 # Functions
-lock()
-{
+lock() {
     pkill ft_lock;
     LANG_MASK=$(xset -q | grep LED | awk '{ print $10 }')
     if [[ "$LANG_MASK" != "00000002" ]]; then 
@@ -20,6 +19,7 @@ lock()
     if [[ "$answer" == "Y" || "$answer" == "y" ]]; then
         ft_lock
     fi
+    clear
 }
 
 #addional
@@ -52,5 +52,116 @@ if [ -f /usr/bin/fastfetch ]; then
   fastfetch
 fi
 
+# Created by `userpath` on 2024-12-13 10:28:59
+export PATH="$PATH:/home/znajdaou/.local/bin"
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+export ZONE_SRC="$HOME/Desktop/github"
+alias zone="cd $ZONE_SRC/cpps/CPP_Module_06 && clear"
+
+
+export PATH="$HOME/.local/python3.10/bin:$PATH"
+
+export PATH="$HOME/goinfre/bin:$PATH"
+
+# bun completions
+[ -s "/home/znajdaou/.bun/_bun" ] && source "/home/znajdaou/.bun/_bun"
+
+alias cclean='bash ~/LinuxCleaner_42.sh'
+alias ccode='cursor > /dev/null 2>&1 & disown'
+export PATH="$HOME/goinfre/npm-global/bin:$PATH"
+export BUN_INSTALL="$HOME/goinfre/bun"
+export PATH="$BUN_INSTALL/bin:$PATH"
+
 # Node: this packages required in this script
 # sudo pacman -S feh picom fastfetch
+setup_goinfre() {
+
+  echo "🔍 Detecting goinfre..."
+
+  GOINFRE_PATH=$(df -h | grep goinfre | awk '{print $6}' | head -n 1)
+
+  if [ -z "$GOINFRE_PATH" ]; then
+    echo "❌ goinfre not found!"
+    return 1
+  fi
+
+  export DEVROOT="$GOINFRE_PATH/$USER"
+  export NVM_DIR="$DEVROOT/nvm"
+  export BUN_INSTALL="$DEVROOT/bun"
+
+  mkdir -p "$DEVROOT"/{apps,bin}
+  mkdir -p "$NVM_DIR"
+  mkdir -p "$BUN_INSTALL"
+
+  export PATH="$DEVROOT/bin:$BUN_INSTALL/bin:$PATH"
+
+  # =========================
+  # NVM Setup (inside goinfre)
+  # =========================
+  if [ ! -f "$NVM_DIR/nvm.sh" ]; then
+    echo "📦 Installing nvm..."
+    curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash
+  fi
+
+  export NVM_DIR="$DEVROOT/nvm"
+  [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
+
+  # Install latest LTS Node if missing
+  if ! command -v node >/dev/null 2>&1; then
+    echo "📦 Installing Node LTS..."
+    nvm install --lts
+    nvm use --lts
+  fi
+
+  # =========================
+  # Bun Setup
+  # =========================
+  if [ ! -f "$BUN_INSTALL/bin/bun" ]; then
+    echo "📦 Installing Bun..."
+    curl -fsSL https://bun.sh/install | bash
+  fi
+
+  # =========================
+  # Cursor Setup
+  # =========================
+  CURSOR_DIR="$DEVROOT/apps/cursor"
+
+  if [ ! -d "$CURSOR_DIR/app" ]; then
+    echo "⬇ Installing Cursor..."
+    mkdir -p "$CURSOR_DIR"
+    cd "$CURSOR_DIR" || return
+
+    curl -L "https://api2.cursor.sh/updates/download/golden/linux-x64/cursor/2.5" -o cursor.AppImage
+    chmod +x cursor.AppImage
+    ./cursor.AppImage --appimage-extract > /dev/null 2>&1
+    mv squashfs-root app
+    rm cursor.AppImage
+  fi
+
+  ln -sf "$CURSOR_DIR/app/AppRun" "$DEVROOT/bin/cursor"
+
+  # =========================
+  # Desktop Entry
+  # =========================
+  mkdir -p ~/.local/share/applications
+
+  cat > ~/.local/share/applications/cursor.desktop <<EOF
+[Desktop Entry]
+Name=Cursor
+Comment=AI Code Editor
+Exec=$DEVROOT/bin/cursor
+Icon=$CURSOR_DIR/app/usr/share/icons/hicolor/256x256/apps/cursor.png
+Terminal=false
+Type=Application
+Categories=Development;IDE;
+StartupNotify=true
+EOF
+
+  chmod +x ~/.local/share/applications/cursor.desktop
+
+  echo "🚀 Clean architecture ready!"
+}
