@@ -6,22 +6,6 @@ alias dell='xrandr -s 1920x1080 && gsettings set org.gnome.desktop.interface tex
 alias sb='source ~/.zshrc'
 alias norm='norminette | grep -v OK'
 
-# Functions
-lock() {
-    pkill ft_lock;
-    LANG_MASK=$(xset -q | grep LED | awk '{ print $10 }')
-    if [[ "$LANG_MASK" != "00000002" ]]; then 
-      echo "Change lang to ENG first!"
-      return 1
-    fi
-    echo -n "lock ? Y/n : ";
-    read answer;
-    if [[ "$answer" == "Y" || "$answer" == "y" ]]; then
-        ft_lock
-    fi
-    clear
-}
-
 #addional
 # set background
 # use ./w1.png from current directory
