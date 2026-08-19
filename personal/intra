@@ -149,3 +149,87 @@ EOF
 
   echo "🚀 Clean architecture ready!"
 }
+
+kdenlive_setup() {
+    set -e
+
+    local INSTALL_DIR="$HOME/goinfre/kdenlive"
+    local DESKTOP_FILE="$HOME/.local/share/applications/kdenlive.desktop"
+    local DOWNLOAD_PAGE="https://kdenlive.org/download/"
+
+    echo "==> Setting up Kdenlive..."
+
+    # Create directories
+    mkdir -p "$INSTALL_DIR"
+    mkdir -p "$HOME/.local/share/applications"
+
+    echo "==> Checking latest Kdenlive version..."
+
+    # Get the official download page and extract the Linux AppImage URL.
+    local APPIMAGE_URL
+    APPIMAGE_URL=$(
+        curl -fsSL "$DOWNLOAD_PAGE" |
+        grep -oE 'https?://[^"]+\.AppImage' |
+        grep -E 'x86_64|amd64' |
+        head -n 1
+    )
+
+    if [ -z "$APPIMAGE_URL" ]; then
+        echo "ERROR: Could not find the Kdenlive AppImage URL."
+        return 1
+    fi
+
+    echo "==> Latest AppImage:"
+    echo "    $APPIMAGE_URL"
+
+    # Extract filename
+    local APPIMAGE_NAME
+    APPIMAGE_NAME="${APPIMAGE_URL##*/}"
+
+    echo "==> Downloading:"
+    echo "    $APPIMAGE_NAME"
+
+    # Remove old AppImages
+    find "$INSTALL_DIR" -maxdepth 1 -type f -name '*.AppImage' -delete
+
+    # Download latest AppImage
+    curl -fL --progress-bar \
+        "$APPIMAGE_URL" \
+        -o "$INSTALL_DIR/$APPIMAGE_NAME"
+
+    # Make executable
+    chmod +x "$INSTALL_DIR/$APPIMAGE_NAME"
+
+    echo "==> Creating application menu entry..."
+
+    # Create/update desktop entry
+    cat > "$DESKTOP_FILE" <<EOF
+[Desktop Entry]
+Name=Kdenlive
+Comment=Free and Open Source Video Editor
+Exec=$INSTALL_DIR/$APPIMAGE_NAME
+Terminal=false
+Type=Application
+Categories=AudioVideo;Video;AudioVideoEditing;
+StartupNotify=true
+EOF
+
+    chmod +x "$DESKTOP_FILE"
+
+    # Update desktop database if available
+    if command -v update-desktop-database >/dev/null 2>&1; then
+        update-desktop-database "$HOME/.local/share/applications" >/dev/null 2>&1 || true
+    fi
+
+    echo
+    echo "======================================"
+    echo " Kdenlive setup complete!"
+    echo "======================================"
+    echo
+    echo "AppImage:"
+    echo "  $INSTALL_DIR/$APPIMAGE_NAME"
+    echo
+    echo "Desktop entry:"
+    echo "  $DESKTOP_FILE"
+    echo
+}
